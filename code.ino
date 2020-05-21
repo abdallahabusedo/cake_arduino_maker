@@ -7,7 +7,7 @@ int servot = A4;
 int angle;
 int pwm;
 int numOfMix = 0 ;
-int revelotion = 2;
+int revelotion = 1000;
 #define  redled  2
 #define reddec 4
 #define  yallowdec 3
@@ -36,8 +36,8 @@ void setup()
 
 void loop ()
 {
- MixTheCake();
- revelotion = 2;
+MixTheCake();
+ revelotion = 400;
  BakingTheCake();
  s = false;
   while(!s){
@@ -57,7 +57,7 @@ void motorMovement (int motorPins[]){
 for (int i = 0; i < 4; i++){
   for (int j = 0; j < 2 ; j++){
     digitalWrite(motorPins[j], (motorMask[i] & (1 << j)));
-    delay(revelotion);
+    delayMicroseconds(revelotion);
     }
    }
 }
@@ -181,27 +181,6 @@ for(int i = 0; i< 4 ; i++)
      Serial.println("none");
     break;
     }
-  /*if(value == 1) 
-  {
-    Serial.println("key 1 pressed");
-    decor1();
-    s = true;
-  }
-    else if(key == 2){
-      Serial.println("key 2 pressed");
-      decor2();
-      s = true;
-    }
-    else if(key == 3){
-      Serial.println("key 3 pressed");
-      decor3();
-      s = true;
-    }
-    else if(key == 4){
-      Serial.println("key 3 pressed");
-      decor2();
-      s = true;
-    }*/
   }
  }
 
@@ -212,14 +191,14 @@ void decor1()
 {
   servoPulse(10,servot);
   digitalWrite(reddec, HIGH);
-  for(int i =0 ; i< 90 ; i++)
+  for(int i =0 ; i< 140 ; i++)
     {
      motorMovement(motor3Pins);
     }
   digitalWrite(reddec, LOW);
   digitalWrite(yallowdec, HIGH);
   servoPulse(90,servot);
-  for(int i =0 ; i< 90 ; i++)
+  for(int j =0 ; j< 140 ; j++)
     {
      motorMovement(motor3Pins);
     }
@@ -230,26 +209,33 @@ void decor1()
 void decor2()
 {
   servoPulse(10 ,servot);
-  digitalWrite(reddec, HIGH);
-  
   for(int i =0 ; i< 4 ; i++)
   {
-    for(int i =0 ; i< 30 ; i++)
+    digitalWrite(reddec, HIGH);
+    for(int j =0 ; j< 17 ; j++)
     {
       motorMovement(motor3Pins);
     }
-    delay(1000);
+    digitalWrite(reddec, LOW);
+    for(int q =0 ; q< 17 ; q++)
+    {
+      motorMovement(motor3Pins);
+    }
   }
   digitalWrite(reddec, LOW);
-  digitalWrite(yallowdec, HIGH);
   servoPulse(90,servot);
-  for(int i =0 ; i< 4 ; i++)
+  for(int w =0 ; w< 4 ; w++)
   {
-    for(int i =0 ; i< 30 ; i++)
+    digitalWrite(yallowdec,LOW);
+    for(int e =0 ; e< 17 ; e++)
     {
       motorMovement(motor3Pins);
     }
-    delay(1000);
+    digitalWrite(yallowdec, HIGH);
+    for(int r =0 ; r< 17 ; r++)
+    {
+      motorMovement(motor3Pins);
+    }
   }
   digitalWrite(yallowdec,LOW);
   servoPulse(0 ,servot);
@@ -260,7 +246,7 @@ void decor3()
   digitalWrite(reddec, HIGH);
   for(int i =0 ; i< 14 ; i++)
   {
-    for(int i =0 ; i< 7 ; i++)
+    for(int j =0 ; j< 10 ; j++)
     {
       motorMovement(motor3Pins);
     }
@@ -269,9 +255,9 @@ void decor3()
   digitalWrite(reddec, LOW);
   digitalWrite(yallowdec, HIGH);
   servoPulse(120,servot);
-  for(int i =0 ; i< 1 ; i++)
+  for(int q =0 ; q< 1 ; q++)
   {
-    for(int i =0 ; i< 7 ; i++)
+    for(int w =0 ; w< 10 ; w++)
     {
       motorMovement(motor3Pins);
     }
@@ -287,14 +273,14 @@ void decor4()
   for(int i =0 ; i< 7 ; i++)
   {
     digitalWrite(reddec, HIGH);
-    for(int i =0 ; i< 7 ; i++)
+    for(int j =0 ; j< 10 ; j++)
     {
       motorMovement(motor3Pins);
     }
     delay(500);
     digitalWrite(reddec, LOW);
     digitalWrite(yallowdec, HIGH);
-    for(int i =0 ; i< 7 ; i++)
+    for(int k =0 ; k< 10 ; k++)
     {
       motorMovement(motor3Pins);
     }
@@ -305,13 +291,10 @@ void decor4()
   digitalWrite(reddec, LOW);
   servoPulse(100,servot);
   digitalWrite(reddec, HIGH);
-  for(int i =0 ; i< 1 ; i++)
-  {
-    for(int i =0 ; i< 90 ; i++)
+    for(int w =0 ; w< 140 ; w++)
     {
       motorMovement(motor3Pins);
     }
-  }
   digitalWrite(reddec, LOW);
   servoPulse(0 ,servot);
 }
